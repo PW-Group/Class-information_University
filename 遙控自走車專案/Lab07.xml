@@ -1,0 +1,225 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="arduino_setup" id="@SU;6@()%c3bk%Wi4K)4" x="73" y="-478">
+    <statement name="SETUP_FUNC">
+      <block type="serial_setup" id="S41z7|D+fHL]gJ9%:4(`">
+        <field name="SERIAL_ID">Serial</field>
+        <field name="SPEED">9600</field>
+        <next>
+          <block type="variables_set" id="l%hGN8OhDd%P6#E7QNk`">
+            <field name="VAR">前光敏腳位</field>
+            <value name="VALUE">
+              <block type="io_allpins" id="h{Tg{/t~6rKI}ywbj`_T">
+                <field name="PIN">D5</field>
+              </block>
+            </value>
+            <next>
+              <block type="variables_set" id="JNI|VF/DDryYp)tj*^EI">
+                <field name="VAR">左光敏腳位</field>
+                <value name="VALUE">
+                  <block type="io_allpins" id=";,+4D%CUv@N2dWW0{n!;">
+                    <field name="PIN">D6</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="variables_set" id="[}36}EIz]~tMG@91,WA9">
+                    <field name="VAR">右光敏腳位</field>
+                    <value name="VALUE">
+                      <block type="io_allpins" id="G|0B/20agd)6c_:xzv[Y">
+                        <field name="PIN">D7</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defreturn" id="wQUM+06,[#ZL*-*YE8Q1" x="66" y="-270">
+    <mutation>
+      <arg name="光敏腳位"></arg>
+    </mutation>
+    <field name="NAME">讀取光敏電阻平均值</field>
+    <statement name="STACK">
+      <block type="variables_set" id="bpEQk{0:~RQ,P,Vy~#!V">
+        <field name="VAR">光敏電阻平均值</field>
+        <value name="VALUE">
+          <block type="math_number" id="LLDJ_fy2-,*Tr-fD4{j2">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+        <next>
+          <block type="io_digitalwrite_var" id="Mz.uuJ8u;P+jNrj^pLq^">
+            <value name="PIN">
+              <block type="variables_get" id="]k+-n+VKRHWEdyU.*%:o">
+                <field name="VAR">光敏腳位</field>
+              </block>
+            </value>
+            <value name="STATE">
+              <block type="io_highlow" id="fX!6o^FVqD6BuLDc|=.D">
+                <field name="STATE">HIGH</field>
+              </block>
+            </value>
+            <next>
+              <block type="controls_repeat_ext" id="xh%NhBBk%PbDM1MfvbGs">
+                <value name="TIMES">
+                  <block type="math_number" id="Dv/D/GzUN|yGD)HD=l(p">
+                    <field name="NUM">20</field>
+                  </block>
+                </value>
+                <statement name="DO">
+                  <block type="math_change2" id="%hx+mzqiR%jSUB3]PnK#">
+                    <field name="VAR">光敏電阻平均值</field>
+                    <field name="OP">+</field>
+                    <value name="DELTA">
+                      <block type="io_analogread_var" id="5zgQ_y(M.#kr5VUYZfI?">
+                        <value name="PIN">
+                          <block type="io_analogpins" id="uV34]*#{(5e=@zPh51Dz">
+                            <field name="PIN">A0</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+                <next>
+                  <block type="time_delay" id="8_Qdr!Xz2Acf-CP,4IqR">
+                    <value name="DELAY_TIME_MILI">
+                      <block type="math_number" id="d.n,@5~x:Va?J[Rmziz]">
+                        <field name="NUM">3</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="io_digitalwrite_var" id="){1l7LN?GIkmxorZqiDu">
+                        <value name="PIN">
+                          <block type="variables_get" id="qXY5yE:5%:MI#2,68w9:">
+                            <field name="VAR">光敏腳位</field>
+                          </block>
+                        </value>
+                        <value name="STATE">
+                          <block type="io_highlow" id="Q60pE+A}f`/T9KB_Wg@i">
+                            <field name="STATE">LOW</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="math_change2" id="LBp/,3[}d5!JaZ_!f5#Y">
+                            <field name="VAR">光敏電阻平均值</field>
+                            <field name="OP">/</field>
+                            <value name="DELTA">
+                              <block type="math_number" id="i[_K.pB@3G*)i~k+n;YW">
+                                <field name="NUM">20</field>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="RETURN">
+      <block type="variables_set_type" id="4Unij,hC{zf9qPvkAgOs">
+        <field name="VARIABLE_SETTYPE_TYPE">NUMBER</field>
+        <value name="VARIABLE_SETTYPE_INPUT">
+          <block type="variables_get" id="Bbo8-c07m/tqYjby;fmr">
+            <field name="VAR">光敏電阻平均值</field>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="arduino_loop" id="EAg)g_/#Sgta~QPPg4@7" deletable="false" x="69" y="71">
+    <statement name="LOOP_FUNC">
+      <block type="serial_print" id="ER/VTS{B/J?,lvn*7^0.">
+        <field name="SERIAL_ID">Serial</field>
+        <field name="NEW_LINE">FALSE</field>
+        <value name="CONTENT">
+          <block type="procedures_callreturn" id="WVw%@H58uS:sBXmqjt]R">
+            <mutation name="讀取光敏電阻平均值">
+              <arg name="光敏腳位"></arg>
+            </mutation>
+            <value name="ARG0">
+              <block type="variables_get" id=";XFGVj1*B;o:%Tax#JzI">
+                <field name="VAR">前光敏腳位</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="serial_print" id="%!Iusms_CY9VnT!)sOn^">
+            <field name="SERIAL_ID">Serial</field>
+            <field name="NEW_LINE">FALSE</field>
+            <value name="CONTENT">
+              <block type="text" id="0bs,F.3hb9buBhAlJfAQ">
+                <field name="TEXT">,</field>
+              </block>
+            </value>
+            <next>
+              <block type="serial_print" id="487Fuh9x*(P?0tuE{0Ay">
+                <field name="SERIAL_ID">Serial</field>
+                <field name="NEW_LINE">FALSE</field>
+                <value name="CONTENT">
+                  <block type="procedures_callreturn" id="?qmX(}2vRvU*ehR1c#Fk">
+                    <mutation name="讀取光敏電阻平均值">
+                      <arg name="光敏腳位"></arg>
+                    </mutation>
+                    <value name="ARG0">
+                      <block type="variables_get" id="_~5-;MazKMRD)#C@3uDX">
+                        <field name="VAR">左光敏腳位</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="serial_print" id="IGkJ8gybv6y5#un,-)68">
+                    <field name="SERIAL_ID">Serial</field>
+                    <field name="NEW_LINE">FALSE</field>
+                    <value name="CONTENT">
+                      <block type="text" id="K~^B/Zk%H@#V1nRgW9yo">
+                        <field name="TEXT">,</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="serial_print" id="9^%k@Z}6xYd_Nrodr8Gm">
+                        <field name="SERIAL_ID">Serial</field>
+                        <field name="NEW_LINE">TRUE</field>
+                        <value name="CONTENT">
+                          <block type="procedures_callreturn" id="kWD+A%]n+G(y*EoHV8Ee">
+                            <mutation name="讀取光敏電阻平均值">
+                              <arg name="光敏腳位"></arg>
+                            </mutation>
+                            <value name="ARG0">
+                              <block type="variables_get" id="+NIl+_rk]3V1boF{#7fL">
+                                <field name="VAR">右光敏腳位</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="time_delay" id="(OQIMlU+j?:^GlndB1q0">
+                            <value name="DELAY_TIME_MILI">
+                              <block type="math_number" id="O]t%=dqWi.Nq`H8x](}[">
+                                <field name="NUM">1000</field>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

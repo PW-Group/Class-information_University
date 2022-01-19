@@ -1,0 +1,185 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="arduino_loop" id="EAg)g_/#Sgta~QPPg4@7" deletable="false" x="37" y="35">
+    <statement name="LOOP_FUNC">
+      <block type="esp8266_webserver_handleclient" id="Re7w(uCv`}w|FYX?!j_n">
+        <next>
+          <block type="wemos_motor_check_idle" id="6dUnGNYl--3]lE!n:sj."></block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="arduino_setup" id="NxN0M)?Y8M.)+Wh}|g(q" x="28" y="140">
+    <statement name="SETUP_FUNC">
+      <block type="controls_waitUntil" id="z+lfh?Z`q2]Y*|u.o^GO">
+        <value name="BOOL">
+          <block type="esp8266_ap_setup" id="FryD)3XI,|Dh{Wh2NHE7">
+            <field name="CHANNEL">1</field>
+            <field name="HIDDEN">FALSE</field>
+            <value name="SSID">
+              <block type="text" id="]mq~[K23%iIw_{dt1)D?">
+                <field name="TEXT">FLGTEST</field>
+              </block>
+            </value>
+            <value name="PINCODE">
+              <block type="text" id="X%B].mgIAXrqdywkGfY(">
+                <field name="TEXT"></field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="esp8266_webserver_setup" id="ECQ+Bw0zGG:+4/ltR}]f">
+            <field name="PORT">80</field>
+            <next>
+              <block type="esp8266_webserver_on2" id="sd2fZW|Q*Ka`k`YXeg%a">
+                <field name="FUNCNAME">接收指令</field>
+                <field name="PATH">/Race</field>
+                <next>
+                  <block type="controls_if" id="41!hksZQS%Bf3M[E^*rA">
+                    <mutation elseif="2"></mutation>
+                    <value name="IF0">
+                      <block type="logic_compare" id="n~46!uT2.j(D;=7BJ}X~">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="variables_get" id="c+eBin^qf+7!6gZKUJ}}">
+                            <field name="VAR">馬達輸出</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="text" id="TqV!Qv*}l}l{@FuX9tJp">
+                            <field name="TEXT">L</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="wemos_motor_move" id="oyWmVJDZP^W5U/1ZfkWm">
+                        <value name="L_MOTOR">
+                          <block type="math_number" id="gkT74C^L2=-E(m5qO%2,">
+                            <field name="NUM">10</field>
+                          </block>
+                        </value>
+                        <value name="R_MOTOR">
+                          <block type="math_number" id="hN#d`;dC,.H7:TkSht)_">
+                            <field name="NUM">50</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <value name="IF1">
+                      <block type="logic_compare" id="FIuI7GNbuY-8Ap;xwhzM">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="variables_get" id="YH#(?[%*)O9j2`*P,K/#">
+                            <field name="VAR">馬達輸出</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="text" id="6n)+kB@ohwG2BJ%-,X{N">
+                            <field name="TEXT">R</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO1">
+                      <block type="wemos_motor_move" id="v?w1:s?{gwq.7sUH;n0/">
+                        <value name="L_MOTOR">
+                          <block type="math_number" id="`aTol0GpZ.[KC/E:69`[">
+                            <field name="NUM">50</field>
+                          </block>
+                        </value>
+                        <value name="R_MOTOR">
+                          <block type="math_number" id="NOt(3O3eBycM,O`1?]Fw">
+                            <field name="NUM">10</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <value name="IF2">
+                      <block type="logic_compare" id="_kTa-UTBdQ6Ys072#ur-">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="variables_get" id="9W(pkvL%./GtM|FV0cPC">
+                            <field name="VAR">馬達輸出</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="text" id="lXR./AHV763*xv{]V@mr">
+                            <field name="TEXT">S</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO2">
+                      <block type="wemos_motor_move" id="JgS2,a%G(}P|l%sn?8xa">
+                        <value name="L_MOTOR">
+                          <block type="math_number" id="jghf_kmx|-z5i+cCXNm6">
+                            <field name="NUM">0</field>
+                          </block>
+                        </value>
+                        <value name="R_MOTOR">
+                          <block type="math_number" id="l*p-wp+JrWxB^JI5m8W+">
+                            <field name="NUM">0</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="nWl~]d31]YCh=EHR}XsP" x="23" y="538">
+    <field name="NAME">接收指令</field>
+    <statement name="STACK">
+      <block type="controls_if" id="#Ut/VR[8L}=qCwmilBJ1">
+        <value name="IF0">
+          <block type="esp8266_webserver_has_arg" id="v{:0yfagz(Y`I9SBR`sF">
+            <value name="ARGNAME">
+              <block type="text" id="ylW`l4HV(Ha[cX9u7U`G">
+                <field name="TEXT">output</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="variables_set" id="9BWYg@_8#q4fauD!ZFdo">
+            <field name="VAR">馬達輸出</field>
+            <value name="VALUE">
+              <block type="esp8266_webserver_arg_by_name" id="ar4@LTI/]Q-P+1po3lG^">
+                <value name="ARGNAME">
+                  <block type="text" id="4lpTac;jrWyp8,j%hOf4">
+                    <field name="TEXT">output</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="esp8266_webserver_send" id=";_avw._!qfZ_So3?MIWu">
+                <value name="STATUS">
+                  <block type="math_number" id="aEV_-erj(#cIs!`H?0N@">
+                    <field name="NUM">200</field>
+                  </block>
+                </value>
+                <value name="MIMETYPE">
+                  <block type="text" id="U`{xwPwIsCNB|_WNtP:R">
+                    <field name="TEXT">text/plain</field>
+                  </block>
+                </value>
+                <value name="CONTENT">
+                  <block type="text" id="grN|dig.8/Txm-_nMoWj">
+                    <field name="TEXT">OK</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>
